@@ -1,4 +1,7 @@
 class ProductsController < ApplicationController
+  
+  before_action :authenticate_user!, except: [:show]
+  
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
   # GET /products
@@ -27,6 +30,7 @@ class ProductsController < ApplicationController
   # POST /products.json
   def create
     @product = Product.new(product_params)
+    @categories = Category.all
 
     respond_to do |format|
       if @product.save

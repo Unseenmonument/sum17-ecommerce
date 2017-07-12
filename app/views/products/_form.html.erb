@@ -39,8 +39,8 @@
   
 
   <div class="form-group">
-    <p><strong>Select a Category:</strong> </p>
-    <%= form.select :category_id, @categories.collect { |c| [ c.name, c.id ]}, {include_blank: "Please select a category" } %>
+    <p><strong>Select a Category:</strong></p>
+    <%= form.select :category_id, @categories.collect{ |c| [ c.name, c.id ]}, {include_blank: "Please select a category" } %>
   </div>
 
   <div class="form-group">
