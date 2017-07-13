@@ -3,20 +3,29 @@ class CartController < ApplicationController
     before_action :authenticate_user!, except: [:add_to_cart, :view_order]
     
     def add_to_cart
-        check = false
+       
         
-        
-        line_item = LineItem.where(product_id: params[:product_id].to_i)
-            if line_item.empty?
+        line_item = LineItem.where(product_id: params[:product_id].to_i).first
+            
+                if line_item.blank?
                 
                 line_item = LineItem.create(product_id: params[:product_id], quantity: params[:quantity].to_i)
                 
                 line_item.update(line_item_total: (line_item.quantity * line_item.product.price))
                 
             else 
-                line_item.update
-
+                new_quantity = line_item.quantity + params[:quantity].to_i
+ 		  	    line_item.update(quantity: new_quantity) 
+ 
+ 		    	#can't update line_item_total until after committing the update to quantity
+ 		  	    line_item.update(line_item_total: line_item.quantity * line_item.product.price)
+ 		  	    
+ 		end
+ 	
+ 		  	
+ 		  	
         redirect_back(fallback_location: root_path
+        
     end
     
     def view_order

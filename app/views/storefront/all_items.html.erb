@@ -4,6 +4,8 @@
 <%= render 'productloop' %>
 
 
+<div class="container">
+	<%= yield %>
 
 <div class="row">
   <% @products.each do |product| %>
@@ -48,9 +50,6 @@
 
     	
 </div>
-
-  <div class="container">
-    	<%= yield %>
 </html>
 
 <!-- Button trigger modal -->

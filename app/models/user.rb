@@ -5,5 +5,15 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :orders
+  
+  # can :manage, Product
+  # can :read, :all 
+  # can :manage, :all
+  
+  def admin?
+    role == "admin"
+  end
+  
+  
 
 end

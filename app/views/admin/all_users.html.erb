@@ -1,0 +1,12 @@
+<h1>All of Our Uers</h1>
+<p>Find me in app/views/admin/all_users.html.erb</p>
+
+<%@users.each do |user| %>
+    <div class="well">
+        <p>User: <%= user.email %></p>
+        <p>Role: <%= user.role %></p>
+        
+        <p><%= link_to "Show User", show_user_path(id: user.id) %></p>
+        
+    </div>
+<% end %>
