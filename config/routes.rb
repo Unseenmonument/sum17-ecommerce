@@ -3,6 +3,8 @@ Rails.application.routes.draw do
   get 'all_users' => 'admin#all_users'
 
   post 'edit_user' => 'admin#edit_user'
+  
+  post 'order_complete' => 'cart#order_complete'
 
   get 'admin' => 'admin#show_user'
 

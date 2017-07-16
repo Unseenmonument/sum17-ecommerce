@@ -6,14 +6,13 @@ class User < ApplicationRecord
 
   has_many :orders
   
-  # can :manage, Product
-  # can :read, :all 
-  # can :manage, :all
-  
+
   def admin?
     role == "admin"
   end
   
+  def guest?
+    role == "guest"
+  end
   
-
 end

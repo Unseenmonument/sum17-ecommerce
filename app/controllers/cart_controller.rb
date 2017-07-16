@@ -20,16 +20,22 @@ class CartController < ApplicationController
  		    	#can't update line_item_total until after committing the update to quantity
  		  	    line_item.update(line_item_total: line_item.quantity * line_item.product.price)
  		  	    
- 		end
+ 	        end
  	
  		  	
  		  	
-        redirect_back(fallback_location: root_path
+            redirect_back(fallback_location: root_path)
         
     end
     
     def view_order
         @line_items = LineItem.all
+        @cart_total = 0
+        
+        @line_items.each do |item|
+            @cart_total += item.line_item_total
+        end
+        
     end
     
     def checkout
@@ -41,6 +47,7 @@ class CartController < ApplicationController
             @order.order_items[line_item.product_id] = line_item.quantity 
             @order.subtotal += line_item.line_item_total
         end
+        
         @order.save
 
         @order.update(sales_tax: (@order.subtotal * 0.08))
@@ -49,6 +56,25 @@ class CartController < ApplicationController
         line_items.destroy_all
     end
     
-    
-    
+    def order_complete
+        @order = Order.find(params[:order_id])
+        @amount = (@order.grand_total.to_f.round(2) * 100).to_i
+
+        customer = Stripe::Customer.create(
+            :email => current_user.email,
+            :card => params[:stripeToken]
+        )
+
+        charge = Stripe::Charge.create(
+            :customer => customer.id,
+            :amount => @amount,
+            :description => 'Rails Stripe customer',
+            :currency => 'usd'
+        )
+
+        rescue Stripe::CardError => e
+        flash[:error] = e.message
+        redirect_to cart_path
+    end
+
 end

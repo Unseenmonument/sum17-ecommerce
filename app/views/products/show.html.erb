@@ -40,7 +40,8 @@
   <%= @product.category.name %>
 </p>
 
-<% if can? :update
-
+<% if can? :update, Product %>
 <%= link_to 'Edit', edit_product_path(@product) %> |
+<% end %>
+
 <%= link_to 'Back', products_path %>

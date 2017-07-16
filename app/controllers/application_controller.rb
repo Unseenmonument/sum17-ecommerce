@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
   end
   
   def categories
-        @categories = Category.order(:name)
+        @categories = Category.all
   end      
   
   def brands

@@ -29,6 +29,11 @@ gem 'cancancan'
 gem 'pry-rails'
 gem 'better_errors', group: :development
 
+gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
+
+gem 'figaro'
+gem 'certified'
+
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'

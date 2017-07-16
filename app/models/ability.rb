@@ -7,9 +7,9 @@ class Ability
     #   user ||= User.new # guest user (not logged in)
       if user.admin?
         can :manage, Product
-      elseif
-        can :show, :all
-    #   end
+      elseif user.guest?
+        can :show, :product
+      end
     #
     # The first argument to `can` is the action you are giving the user
     # permission to do.
